@@ -38,7 +38,7 @@ def parse_arguments(treetrimmer):
     or orthogroups are compared to a species tree, and the subset with less
     conflict is selected.
 
-    A weighets Robinson-Foulds distance is used as a metric to assess all
+    Weighted Robinson-Foulds distances are used as metrics to assess all
     possible resolved tree subsets.
 
     The program depends on the DendroPy phylogenetic library:
