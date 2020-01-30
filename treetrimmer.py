@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# PolyFastA.py
+# treetrimmer.py
 # Santiago Sanchez-Ramirez, University of Toronto, santiago.snchez@gmail.com
 
 import collections
@@ -29,7 +29,7 @@ class color:
 
 def parse_arguments(treetrimmer):
     # parse arguments
-    
+
     parser = argparse.ArgumentParser(prog="treetrimmer.py",
     formatter_class=argparse.RawTextHelpFormatter,
     description="""
@@ -48,13 +48,13 @@ def parse_arguments(treetrimmer):
     epilog="""
     Example:
 
-    python treetrimmer.py -p 10 -a myAlignments/ -af fasta -t myTrees/ -tf newick -st my_species_tree.tre -o output_dir/ 
+    python treetrimmer.py -p 10 -a myAlignments/ -af fasta -t myTrees/ -tf newick -st my_species_tree.tre -o output_dir/
 
     -a, -t, and -o refer to directory names, and -st refers to the species tree file.
 
     If the species tree labels are these:
     (((A,B),C),D);
-    
+
     The expected gene tree labels should be:
     ((((A.g1,A.g5),B.g7),C.g45),(C.g32,D.g5));
 
@@ -115,7 +115,7 @@ def split_multi_and_singlecopy(tree, delimiter=".", index=0):
     spp_counts = dict(collections.Counter(labs_spp))
     spp_para = [ x for x,y in zip(spp_counts.keys(), spp_counts.values()) if y > 1 ]
     labs_para = [ [ labs[i] for i in range(len(labs)) if labs_spp[i] == p ] for p in spp_para ]
-    labs_sing = [ labs[labs_spp.index(x)] for x,y in zip(spp_counts.keys(), spp_counts.values()) if y == 1 ] 
+    labs_sing = [ labs[labs_spp.index(x)] for x,y in zip(spp_counts.keys(), spp_counts.values()) if y == 1 ]
     return(labs_para, labs_sing)
 
 def get_tip_edge(tree, lab):
@@ -238,4 +238,3 @@ if __name__ == '__main__':
     else:
         with mp.Pool() as pool:
             pool.starmap(worker, all_args)
-
