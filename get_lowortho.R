@@ -32,3 +32,23 @@ ggplot(df.len, aes(size, number)) +
   ylab("number of orthogroups") +
   xlab("number of gene copies")
 dev.copy2pdf(file="scatterplot_ortho_vs_copies.60-200.pdf") # save to file
+
+blank_interleave = function(x){
+  return(c(rbind(rep('', length(x)),x))[-1])
+}
+
+blank_interleave = function(from, to, by, by2){
+  seq_short = seq(from, to, by)
+  seq_long = seq(from, to, by2)
+  blank = vector("character",length(seq_long))
+  blank[ seq_long %in% seq_short ] = as.character(seq_short)
+  return(blank)
+}
+
+ggplot(df.len, aes(size, number)) +
+  geom_point() +geom_line() +
+  scale_y_continuous(breaks=seq(0, 210, 10), labels = blank_interleave(0,210,50,10)) +
+  scale_x_continuous(breaks=seq(60, 200, 5), labels = blank_interleave(60,200,10,5)) +
+  ylab("number of orthogroups") +
+  xlab("number of gene copies") +
+  background_grid(major="xy")

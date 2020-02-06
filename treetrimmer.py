@@ -67,7 +67,7 @@ def parse_arguments(treetrimmer):
     \n""")
     parser.add_argument(
     '--file_list', '-fl', metavar="PATH", type=str, required=True,
-    help='a directory with alignment files.')
+    help='a file with a tab-separated list of paired file names of alignments and trees.')
     parser.add_argument(
     '--aln_dir', '-ad', metavar="PATH", type=str, required=True,
     help='a directory with alignment files.')
@@ -213,8 +213,8 @@ def worker(args, spp_tree, data):
         paralogs = all_paralogs
     all_comb = list(product(*paralogs))
     RF_score, best_tree, r_matrix = select_combination_RF(spp_tree, gene_tree, matrix, all_comb, singletons, keep_inpara, int(args.support_limit))
-    r_matrix.write(path=args.out+"/trees"+"/"+data[0], schema="fasta")
-    best_tree.write(path=args.out+"/alignments"+"/"+data[1], schema="newick")
+    r_matrix.write(path=args.out+"/alignments"+"/"+data[0], schema="fasta")
+    best_tree.write(path=args.out+"/trees"+"/"+data[1], schema="newick")
     if not args.silent:
         print("Done for",color.BOLD+data[0]+color.END,"and",color.BOLD+data[1]+color.END,", best RF score:",color.BOLD+str(round(RF_score,2))+color.END)
 
